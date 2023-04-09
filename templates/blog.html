@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<p style="margin-top: 20px;"></p>
+{% if current_user.is_authenticated %}
+    <a href="blogn" class="btn btn-secondary" style="margin-bottom: 20px; background-color: #1e434c; color: #fef2e4">Добавить запись</a>
+{% endif %}
+{% for item in news%}
+<div class="rounded" style="margin-bottom: 20px; background-color: #1e434c">
+    <h2 style="color: #fef2e4">{{item.title}}</h2>
+    <div style="color: #fef2e4">
+        {{item.content}}
+    </div>
+    <div style="color: #fef2e4">
+        Дата написания - {{item.created_date}}
+        {% if current_user.is_authenticated and current_user == item.user %}
+    <div>
+        <a href="/blogn/{{ item.id }}" class="btn btn-warning btn-sm">
+            Изменить
+        </a>
+        <a href="/blogd/{{ item.id }}" class="btn btn-danger btn-sm">
+            Удалить
+        </a>
+    </div>
+{% endif %}
+    </div>
+</div>
+{% endfor %}
+<div style="margin-bottom: 608px;"></div>
+<div>ㅤ</div>
+{% endblock %}
